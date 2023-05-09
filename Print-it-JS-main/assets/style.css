@@ -113,6 +113,19 @@ header {
 	min-height: 470px;
 	position: relative;
 }
+
+/* Permet de placer les flêches dans la banner */
+#banner img:first-child{
+	position: absolute;
+	left: 5%;
+
+}
+
+#banner img:last-child{
+	position: absolute;
+	right: 5%;
+}
+
 .banner-img {
 	position: absolute;
 	width: 100%;
