@@ -23,17 +23,17 @@ const firstChildArrow = document.getElementById("banner");
 const leftArrow = firstChildArrow.firstElementChild;
 let slideFocus = slides.length - 4;
 const dotsSection = document.querySelector(".dots");
-const dotFocus = document.createElement("div");
-const dotAddSelected = dotFocus.classList.add("dot_selected");
-
+const dotFocus = document.getElementsByClassName("dot");
 
 leftArrow.addEventListener("click", function () {
-
 	if (slideFocus == 0) {
+		dotFocus[slideFocus].classList.remove("dot_selected");
 		slideFocus = slideFocus + 3;
-		
+		dotFocus[slideFocus].classList.add("dot_selected");
 	} else {
-		slideFocus = slideFocus++;
+		dotFocus[slideFocus].classList.remove("dot_selected");
+		slideFocus = slideFocus - 1;
+		dotFocus[slideFocus].classList.add("dot_selected");
 	}
 });
 
@@ -42,19 +42,28 @@ const lastChildrenArrow = document.getElementById("banner");
 const rightArrow = lastChildrenArrow.lastElementChild;
 
 rightArrow.addEventListener("click", function () {
-	// if()
-	console.log();
+	if (slideFocus == 3) {
+		dotFocus[slideFocus].classList.remove("dot_selected");
+		slideFocus = slideFocus - 3;
+		dotFocus[slideFocus].classList.add("dot_selected");
+	} else {
+		dotFocus[slideFocus].classList.remove("dot_selected");
+		slideFocus = slideFocus + 1;
+		dotFocus[slideFocus].classList.add("dot_selected");
+	}
 });
 
 // AJout des dots
-
 for (let i = 0; i < slides.length; i++) {
 
 	// Va créer des div pour chaque dot
 	const dotsAdd = document.createElement("div");
 	// Va attribuer la class .dot à chaque div
-	dotsAdd.classList.add("dot" + i);
+	dotsAdd.classList.add("dot");
 	dotsAdd.innerText = ".";
 
 	dotsSection.appendChild(dotsAdd);
 }
+
+// Permet d'attribuer un rond plein au premier dot au chargement de la page. Cette partie doit se mettre après la boucle permettant de créer les dots. Je voulais initiallement mettre ce code après la déclaration des let et const mais à ce moment les dots ne sont pas créés donc ne fonctionne pas.
+dotFocus[0].classList.add("dot_selected");
