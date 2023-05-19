@@ -2,13 +2,13 @@ const slides = [
 	{
 		image: "slide1.jpg",
 		tagLine: "Impressions tous formats <span>en boutique et en ligne</span>",
-		prix:5
+		prix: 5
 	},
 	{
 		image: "slide2.jpg",
 		tagLine:
 			"Tirages haute définition grand format <span>pour vos bureaux et events</span>",
-			prix:10
+		prix: 10
 	},
 	{
 		image: "slide3.jpg",
@@ -20,39 +20,38 @@ const slides = [
 	},
 ];
 
-// Permet de sélectionner la la div banner
-const selectBanner = document.getElementById("banner");
-// Permet de sélectionner la flèche droite
+const selectBanner = document.querySelector("#banner");
+const changeBannerText = selectBanner.querySelectorAll("p");
+const selectDotsSection = document.querySelector(".dots");
+const selectBannerImage = document.querySelector(".banner-img");
 const rightArrow = selectBanner.lastElementChild;
 const leftArrow = selectBanner.firstElementChild;
 let indexSlides = slides.length;
 let currentSlide = 0;
-const dotsSection = document.querySelector(".dots");
-const selectBannerImage = document.querySelector(".banner-img");
+const pCounterInBanner = changeBannerText.length;
+let indexFirstPinBanner = pCounterInBanner - pCounterInBanner;
 
 for (let i = 0; i < slides.length; i++) {
-	// Va créer des div pour chaque dot
 	const dotsAdd = document.createElement("div");
-	// Va attribuer la class .dot à chaque div
 	dotsAdd.classList.add("dot");
-
-	dotsSection.appendChild(dotsAdd);
+	selectDotsSection.appendChild(dotsAdd);
 }
 
-let moveCaroussel = (x) => 
-{
-	dotFocus[currentSlide].classList.remove("dot_selected");
-	currentSlide = ((currentSlide+indexSlides+x) % indexSlides);
-	dotFocus[currentSlide].classList.add("dot_selected");
-	selectBannerImage.src = "./assets/images/slideshow/"+ slides[currentSlide].image;
+let moveCaroussel = (x) => {
+	dotSelectedElement[currentSlide].classList.remove("dot_selected");
+	currentSlide = ((currentSlide + indexSlides + x) % indexSlides);
+	dotSelectedElement[currentSlide].classList.add("dot_selected");
+	selectBannerImage.src = "./assets/images/slideshow/" + slides[currentSlide].image;
+	changeBannerText[indexFirstPinBanner].innerHTML = slides[currentSlide].tagLine;
 }
 
-// AJout des dots
+const dotSelectedElement = document.querySelectorAll(".dot");
 
-// Permet d'attribuer un rond plein au premier dot au chargement de la page. Cette partie doit se mettre après la boucle permettant de créer les dots. Je voulais initiallement mettre ce code après la déclaration des let et const mais à ce moment les dots ne sont pas créés donc ne fonctionne pas.
-const dotFocus = document.querySelectorAll(".dot");
+dotSelectedElement[currentSlide].classList.add("dot_selected");
 
-dotFocus[0].classList.add("dot_selected");
-
-leftArrow.addEventListener("click", moveCaroussel(1));
-rightArrow.addEventListener("click", moveCaroussel(-1))
+leftArrow.addEventListener("click", function () {
+	moveCaroussel(-1);
+});
+rightArrow.addEventListener("click", function () {
+	moveCaroussel(1);
+});
