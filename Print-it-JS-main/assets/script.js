@@ -41,7 +41,7 @@ let moveCaroussel = (x) => {
 	dotSelectedElement[currentSlide].classList.remove("dot_selected");
 	currentSlide = ((currentSlide + indexSlides + x) % indexSlides);
 	dotSelectedElement[currentSlide].classList.add("dot_selected");
-	selectBannerImage.src = "./assets/images/slideshow/" + slides[currentSlide].image;
+	selectBannerImage.src = "./Print-it-JS-main/assets/images/slideshow/" + slides[currentSlide].image;
 	changeBannerText[indexFirstPinBanner].innerHTML = slides[currentSlide].tagLine;
 }
 
